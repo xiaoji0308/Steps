@@ -2,3 +2,4 @@ schemaVersion: 1
 id: "S-T-E-P-S"
 name: "A-智能步数管理［HyperOS］"
 summary: "自动增加步数"
+description: "用于 HyperOS 设备的智能步数管理模块，支持通过 WebUI 管理模块运行状态和相关配置。"
