@@ -1,99 +1,106 @@
 # 智能步数管理（HyperOS）
 
 <p align="center">
-  <strong>面向 Xiaomi HyperOS 的步数管理 KernelSU / Magisk 模块</strong><br>
-  提供 WebUI 操作面板、运行控制、基础配置与版本更新检查。
+  <strong>为 Xiaomi HyperOS 打造的步数管理模块</strong><br>
+  通过 KernelSU / Magisk 与 WebUI，便捷管理模块运行状态和基础配置。
 </p>
 
 <p align="center">
-  <a href="https://github.com/xiaoji0308/Steps/releases">下载模块</a> ·
-  <a href="https://t.me/Stepsxxx">Telegram 交流群</a> ·
-  <a href="https://www.coolapk.com/u/1547334">酷安主页</a>
+  <a href="https://github.com/xiaoji0308/Steps/releases"><img alt="下载 Releases" src="https://img.shields.io/badge/下载-Releases-5865F2?style=for-the-badge&logo=github&logoColor=white"></a>
+  <a href="https://t.me/Stepsxxx"><img alt="Telegram 群组" src="https://img.shields.io/badge/Telegram-交流群-26A5E4?style=for-the-badge&logo=telegram&logoColor=white"></a>
+  <a href="https://www.coolapk.com/u/1547334"><img alt="酷安主页" src="https://img.shields.io/badge/酷安-个人主页-19B75A?style=for-the-badge"></a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/xiaoji0308/Steps/issues">反馈问题</a> ·
+  <a href="https://github.com/xiaoji0308/Steps/releases">版本下载</a> ·
+  <a href="https://t.me/Stepsxxx">加入交流群</a>
 </p>
 
 ---
 
-## 项目简介
+## 📖 项目简介
 
-**智能步数管理**（模块 ID：`S-T-E-P-S`）是一个用于 Xiaomi HyperOS 环境的 KernelSU / Magisk 模块。模块通过 WebUI 提供可视化控制入口，方便用户启动或停止步数管理任务、刷新运行状态并调整基础运行配置。
+**智能步数管理**（模块 ID：`S-T-E-P-S`）是面向 Xiaomi HyperOS 环境的 KernelSU / Magisk 模块。它提供手机端 WebUI 控制面板，帮助用户管理步数任务的运行状态、重启相关进程，并调整模块提供的基础选项。
 
-> 本项目面向有模块安装和管理经验的用户。不同系统版本、Root 方案和应用环境可能影响实际表现，请以自己设备上的测试结果为准。
+项目持续迭代中。不同设备、系统版本和 Root 环境可能存在差异，实际功能以安装包中的 WebUI 和模块行为为准。
 
-## 功能特性
+## ✨ 功能特色
 
-- **WebUI 可视化面板**：通过网页面板管理模块，不必每次都手动执行命令。
-- **运行控制**：支持开始运行、停止计步任务、重启相关进程和刷新状态。
-- **基础配置**：可在面板中调整支持的运行选项，例如午夜自动重新运行、是否保留运行日志及相关时间间隔设置。
-- **版本更新提示**：WebUI 提供更新检查入口与 Release 页面入口；是否能检查成功取决于设备网络及 GitHub 发布信息。
-- **适配移动端**：面板采用卡片式布局，便于在手机屏幕上操作。
-- **独立运行**：更新检查失败时，不应影响模块原有的运行控制功能。
-
-## 安装方式
-
-1. 在本仓库的 [Releases 页面](https://github.com/xiaoji0308/Steps/releases) 下载模块 ZIP。
-2. 打开设备上已安装的 KernelSU 或 Magisk 管理器。
-3. 从本地选择下载的 ZIP 并安装。
-4. 按安装器提示完成重启（如果需要）。
-5. 在模块详情中打开 WebUI，检查运行状态并按需调整配置。
-
-**建议：** 安装或更新前保留当前可用安装包；首次使用时先确认模块状态正常，再启用自动运行等选项。
-
-## 使用说明
-
-在 WebUI 中可以根据页面提供的按钮和选项操作：
-
-| 页面功能 | 说明 |
+| 功能 | 说明 |
 | --- | --- |
-| 开始运行 | 启动步数管理任务 |
-| 停止计步 | 停止当前计步任务 |
-| 重启进程 | 重启模块相关进程 |
-| 刷新状态 | 重新读取并显示当前运行状态 |
-| 24 点后自动重新运行 | 控制是否在午夜后自动重新运行 |
-| 保留运行日志 | 控制是否保留模块运行日志 |
-| 检查更新 | 查询仓库发布信息并提示可能的新版本 |
-| 查看发布页 | 打开 GitHub Releases 页面 |
+| 🎛️ **运行控制** | 开始运行、停止计步任务、重启相关进程、刷新当前状态 |
+| ⚙️ **基础配置** | 管理午夜后自动重新运行、运行日志保留及页面提供的其他选项 |
+| 📱 **移动端 WebUI** | 卡片式布局，适合在手机屏幕上查看和操作 |
+| 🔔 **版本更新检查** | 检查 GitHub Release 信息，并提供发布页入口 |
+| 🧩 **模块化管理** | 通过 KernelSU / Magisk 安装、启用和管理模块 |
 
-不同版本的 WebUI 选项可能有所调整，请以实际安装版本显示为准。
+> **说明：** 更新检查用于提示版本信息，不等于自动下载或自动安装。发现新版本后，请按发布说明下载 ZIP 并通过 KernelSU / Magisk 安装。
 
-## 下载与版本更新
+## 📦 下载与安装
 
-- **最新正式安装包：** [GitHub Releases](https://github.com/xiaoji0308/Steps/releases)
-- **更新信息接口：** [GitHub Latest Release API](https://api.github.com/repos/xiaoji0308/Steps/releases/latest)
+1. 打开 **[GitHub Releases 下载页](https://github.com/xiaoji0308/Steps/releases)**。
+2. 下载对应版本的模块 ZIP 安装包。
+3. 打开设备上的 KernelSU 或 Magisk 管理器，选择从本地安装 ZIP。
+4. 按安装器提示完成操作；如果安装器要求重启，请重启设备。
+5. 安装完成后打开模块 WebUI，确认运行状态正常，再按需调整配置。
 
-发布新版本时，维护者应创建 GitHub Release，并附上可直接安装的模块 ZIP。版本号、标签和更新检查逻辑应保持一致；仅修改仓库中的文件，不会自动更新已经安装在设备上的模块。
+**更新前建议：** 保留当前可用的安装包，并阅读对应 Release 的更新说明。请勿将源码压缩包误当作模块安装包；应下载 Release 附件中的可安装 ZIP。
 
-如果 WebUI 显示发现新版本，通常还需要下载新 ZIP 并通过 KernelSU / Magisk 安装，才会真正更新本地模块。更新检查不等于自动安装。
+## 🕹️ WebUI 使用说明
 
-## 常见问题
+- **开始运行：** 启动模块提供的步数管理任务。
+- **停止计步：** 停止当前计步任务。
+- **重启进程：** 重启模块相关进程。
+- **刷新状态：** 重新读取并显示运行状态。
+- **基础配置：** 根据页面提示调整自动重新运行、日志保留等选项。
+- **检查更新：** 查询仓库发布信息并显示检查结果。
+- **查看发布页：** 打开 GitHub Releases 页面，查看版本说明和安装包。
 
-### 更新检查失败怎么办？
+页面选项可能随版本调整，请以当前安装版本显示的内容为准。
 
-1. 确认设备网络能够访问 GitHub。
-2. 打开 [Releases 页面](https://github.com/xiaoji0308/Steps/releases)，确认已发布正式 Release，并且 Release 附有 ZIP 安装包。
-3. 确认本地版本与 Release 使用的版本标识遵循项目当前的版本规则。
-4. 如果仍然失败，可以先从 Releases 手动下载并安装模块；检查失败不应影响原有运行功能。
+## 🔄 版本更新说明
 
-### 安装后 WebUI 没有变化？
+- **最新版本与安装包：** [Releases](https://github.com/xiaoji0308/Steps/releases)
+- **最新 Release 信息：** [GitHub API](https://api.github.com/repos/xiaoji0308/Steps/releases/latest)
 
-- 确认安装的是刚下载的 ZIP，而不是旧版本安装包。
+发布新版本时，应创建 GitHub Release，并附上可安装的模块 ZIP。请确保 Release 标签、模块 `module.prop` 中的版本信息，以及 WebUI 的版本比较规则相互一致。
+
+如果 WebUI 提示发现新版本，手机上已安装的模块不会因此自动改变；需要下载新 ZIP 并通过 KernelSU / Magisk 安装，才能完成更新。
+
+## ❓ 常见问题
+
+### 更新检查失败
+
+1. 检查设备网络是否能够访问 GitHub。
+2. 确认仓库已经发布 Release，而不只是提交了代码或上传了普通文件。
+3. 确认 Release 附件中有可安装的模块 ZIP。
+4. 如果暂时无法检查更新，可先从 [Releases 页面](https://github.com/xiaoji0308/Steps/releases) 手动下载并安装。
+
+### 安装后页面仍显示旧内容
+
+- 确认安装的是最新下载的 ZIP，而不是之前保存的旧包。
 - 在 KernelSU / Magisk 中确认模块已启用。
-- 重新打开 WebUI；如果仍显示旧内容，请尝试关闭页面后重新进入，必要时重启设备。
-- 提交问题时，请附上模块版本、系统版本、Root 方案和相关截图，避免分享设备敏感信息。
+- 关闭 WebUI 后重新打开；必要时重启设备。
+- 如果问题仍然存在，反馈时请附上模块版本、系统版本、Root 方案和错误截图。
 
-## 交流与反馈
+## 💬 交流与反馈
 
-- **Telegram 交流群：** [https://t.me/Stepsxxx](https://t.me/Stepsxxx)
-- **酷安主页：** [https://www.coolapk.com/u/1547334](https://www.coolapk.com/u/1547334)
-- **GitHub Issues：** [提交问题或建议](https://github.com/xiaoji0308/Steps/issues)
+欢迎加入交流群、关注酷安主页，或通过 GitHub 提交问题与建议。
 
-反馈问题时，建议说明设备型号、HyperOS 版本、KernelSU / Magisk 版本、模块版本、复现步骤和错误截图。请勿公开发布账号密码、设备标识等敏感信息。
+- ✈️ **Telegram 交流群：** [https://t.me/Stepsxxx](https://t.me/Stepsxxx)
+- 📱 **酷安个人主页：** [https://www.coolapk.com/u/1547334](https://www.coolapk.com/u/1547334)
+- 🐛 **GitHub Issues：** [提交问题 / 建议](https://github.com/xiaoji0308/Steps/issues)
+- 📥 **GitHub Releases：** [下载模块 / 查看更新](https://github.com/xiaoji0308/Steps/releases)
 
-## 免责声明
+提交反馈时，建议描述设备型号、HyperOS 版本、KernelSU / Magisk 版本、模块版本和复现步骤。请勿公开账号密码或其他敏感信息。
 
-本项目按现状提供。请自行评估在设备上安装和使用模块的风险，并在更新前做好备份。因设备环境差异、第三方应用或系统更新造成的问题，请结合实际情况排查。
+## ⚠️ 免责声明
+
+本项目按现状提供。不同设备、系统版本、Root 方案及第三方应用环境可能影响模块行为。请自行评估使用风险，并在更新前做好必要备份。
 
 ---
 
 <p align="center">
-  如果这个项目对你有帮助，欢迎关注仓库、提交反馈或加入交流群。
+  如果这个项目对你有帮助，欢迎点亮 ⭐、提交反馈，或加入 Telegram 交流群。
 </p>
