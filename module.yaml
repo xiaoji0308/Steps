@@ -1,5 +1,5 @@
 schemaVersion: 1
-id: "STEPS"
+id: "S-T-E-P-S"
 name: "智能步数管理"
 summary: "用于智能管理步数的 KernelSU 模块"
 description: "通过 WebUI 管理模块运行状态和相关配置，支持查看状态、调整参数及检查版本更新。"
