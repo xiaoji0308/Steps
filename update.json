@@ -6,5 +6,5 @@
   "repository": "https://github.com/xiaoji0308/Steps",
   "releases_api": "https://api.github.com/repos/xiaoji0308/Steps/releases/latest",
   "releases_page": "https://github.com/xiaoji0308/Steps/releases",
-  "note": "发布新版本时请更新 version/versionCode，并创建 GitHub Release，附上可安装的模块 ZIP。"
+  "note": " "
 }
