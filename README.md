@@ -64,8 +64,6 @@
 - **最新版本与安装包：** [Releases](https://github.com/xiaoji0308/Steps/releases)
 - **最新 Release 信息：** [GitHub API](https://api.github.com/repos/xiaoji0308/Steps/releases/latest)
 
-发布新版本时，应创建 GitHub Release，并附上可安装的模块 ZIP。请确保 Release 标签、模块 `module.prop` 中的版本信息，以及 WebUI 的版本比较规则相互一致。
-
 如果 WebUI 提示发现新版本，手机上已安装的模块不会因此自动改变；需要下载新 ZIP 并通过 KernelSU / Magisk 安装，才能完成更新。
 
 ## ❓ 常见问题
