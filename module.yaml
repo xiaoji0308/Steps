@@ -2,4 +2,4 @@ schemaVersion: 1
 id: "S-T-E-P-S"
 name: "A-智能步数管理［HyperOS］"
 summary: "自动增加步数"
-description: "通过可选自定义配置实现更加灵活的步数自动增加与管理"
+description: "README.md"
