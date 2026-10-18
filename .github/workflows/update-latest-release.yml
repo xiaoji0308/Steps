@@ -3,6 +3,7 @@ name: Update latest release metadata
 on:
   release:
     types: [published, released]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -12,18 +13,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - name: Update latest release metadata
         env:
-          TAG_NAME: ${{ github.event.release.tag_name }}
-          HTML_URL: ${{ github.event.release.html_url }}
-          RELEASE_NAME: ${{ github.event.release.name }}
+          GH_TOKEN: ${{ github.token }}
+          EVENT_TAG_NAME: ${{ github.event.release.tag_name }}
+          EVENT_HTML_URL: ${{ github.event.release.html_url }}
+          EVENT_RELEASE_NAME: ${{ github.event.release.name }}
         run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Manual run: use the latest-release.json values only if no release event is available."
+            exit 0
+          fi
           python - <<'PY'
           import json, os
           data = {
-              "tag_name": os.environ["TAG_NAME"],
-              "html_url": os.environ["HTML_URL"],
-              "name": os.environ.get("RELEASE_NAME") or os.environ["TAG_NAME"]
+              "tag_name": os.environ["EVENT_TAG_NAME"],
+              "html_url": os.environ["EVENT_HTML_URL"],
+              "name": os.environ.get("EVENT_RELEASE_NAME") or os.environ["EVENT_TAG_NAME"]
           }
           with open("latest-release.json", "w", encoding="utf-8") as f:
               json.dump(data, f, ensure_ascii=False, indent=2)
@@ -32,5 +40,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add latest-release.json
-          git commit -m "Update latest release metadata: $TAG_NAME" || exit 0
-          git push
+          git commit -m "Update latest release metadata: $EVENT_TAG_NAME" || exit 0
+          git push origin HEAD:main
