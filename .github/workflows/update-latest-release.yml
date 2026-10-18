@@ -11,9 +11,9 @@ jobs:
   update-latest-release:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Update latest release metadata
         env:
-          GH_TOKEN: ${{ github.token }}
           TAG_NAME: ${{ github.event.release.tag_name }}
           HTML_URL: ${{ github.event.release.html_url }}
           RELEASE_NAME: ${{ github.event.release.name }}
