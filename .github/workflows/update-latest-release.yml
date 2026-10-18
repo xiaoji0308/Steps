@@ -1,0 +1,36 @@
+name: Update latest release metadata
+
+on:
+  release:
+    types: [published, released]
+
+permissions:
+  contents: write
+
+jobs:
+  update-latest-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update latest release metadata
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ github.event.release.tag_name }}
+          HTML_URL: ${{ github.event.release.html_url }}
+          RELEASE_NAME: ${{ github.event.release.name }}
+        run: |
+          python - <<'PY'
+          import json, os
+          data = {
+              "tag_name": os.environ["TAG_NAME"],
+              "html_url": os.environ["HTML_URL"],
+              "name": os.environ.get("RELEASE_NAME") or os.environ["TAG_NAME"]
+          }
+          with open("latest-release.json", "w", encoding="utf-8") as f:
+              json.dump(data, f, ensure_ascii=False, indent=2)
+              f.write("\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add latest-release.json
+          git commit -m "Update latest release metadata: $TAG_NAME" || exit 0
+          git push
