@@ -1,6 +1,6 @@
 {
   "name": "智能步数管理（HyperOS）",
-  "module_id": "S-T-E-P-S",
+  "module_id": "A-STEPS",
   "repository": "https://github.com/xiaoji0308/Steps",
   "releases_api": "https://api.github.com/repos/xiaoji0308/Steps/releases/latest",
   "releases_page": "https://github.com/xiaoji0308/Steps/releases",
