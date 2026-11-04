@@ -1,65 +1,35 @@
-name: Update latest release metadata
-
-on:
-  release:
-    types: [published]
-  workflow_dispatch:
-
-permissions:
-  contents: write
-
-concurrency:
-  group: update-latest-release-main
-  cancel-in-progress: false
-
-jobs:
-  update-latest-release:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 0
-      - name: Update latest release metadata
+      - name: Update latest release metadata and ksu-update.json
         env:
           GH_TOKEN: ${{ github.token }}
-          EVENT_NAME: ${{ github.event_name }}
-          EVENT_TAG_NAME: ${{ github.event.release.tag_name }}
-          EVENT_HTML_URL: ${{ github.event.release.html_url }}
-          EVENT_RELEASE_NAME: ${{ github.event.release.name }}
+          TAG: ${{ github.event.release.tag_name }}
         run: |
-          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
-            gh api repos/${{ github.repository }}/releases/latest > /tmp/latest-release.json
-            python - <<'PY'
-          import json
-          with open("/tmp/latest-release.json", encoding="utf-8") as f:
-              release = json.load(f)
-          data = {
-              "tag_name": release["tag_name"],
-              "html_url": release["html_url"],
-              "name": release.get("name") or release["tag_name"]
-          }
-          with open("latest-release.json", "w", encoding="utf-8") as f:
-              json.dump(data, f, ensure_ascii=False, indent=2)
-              f.write("\n")
-          PY
-          else
-            python - <<'PY'
+          # latest-release.json（WebUI 检查更新用，保持原逻辑）
+          python - <<'PY'
           import json, os
           data = {
-              "tag_name": os.environ["EVENT_TAG_NAME"],
-              "html_url": os.environ["EVENT_HTML_URL"],
-              "name": os.environ.get("EVENT_RELEASE_NAME") or os.environ["EVENT_TAG_NAME"]
+              "tag_name": os.environ["TAG"],
+              "html_url": f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/releases/tag/{os.environ['TAG']}",
+              "name": os.environ["TAG"]
           }
           with open("latest-release.json", "w", encoding="utf-8") as f:
               json.dump(data, f, ensure_ascii=False, indent=2)
               f.write("\n")
           PY
-          fi
+          # ksu-update.json（KSU 管理器本地列表检查更新用）
+          mkdir -p /tmp/dl
+          gh release download "$TAG" -R "$GITHUB_REPOSITORY" -p '*.zip' -D /tmp/dl --clobber
+          ZIP=$(basename "$(ls /tmp/dl/*.zip | head -1)")
+          VER=$(unzip -p "/tmp/dl/$ZIP" module.prop | sed -n 's/^version=//p')
+          VC=$(unzip -p "/tmp/dl/$ZIP" module.prop | sed -n 's/^versionCode=//p')
+          cat > ksu-update.json <<EOF
+          {
+            "version": "$VER",
+            "versionCode": $VC,
+            "zipUrl": "https://github.com/$GITHUB_REPOSITORY/releases/download/$TAG/$ZIP"
+          }
+          EOF
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add latest-release.json
-          git commit -m "Update latest release metadata" || exit 0
-          git fetch origin main
-          git rebase origin/main
-          git push origin HEAD:main
+          git add latest-release.json ksu-update.json
+          git commit -m "chore: sync update metadata for $TAG" || exit 0
+          git push
