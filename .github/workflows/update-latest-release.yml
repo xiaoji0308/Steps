@@ -1,21 +1,48 @@
+name: Update latest release metadata
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-latest-release-main
+  cancel-in-progress: false
+
+jobs:
+  update-latest-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
       - name: Update latest release metadata and ksu-update.json
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.event.release.tag_name }}
         run: |
-          # latest-release.json（WebUI 检查更新用，保持原逻辑）
-          python - <<'PY'
+          if [ -z "$TAG" ]; then
+            TAG=$(gh api repos/$GITHUB_REPOSITORY/releases/latest --jq '.tag_name')
+          fi
+
+          python3 - <<'PY'
           import json, os
+          tag = os.environ["TAG"]
           data = {
-              "tag_name": os.environ["TAG"],
-              "html_url": f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/releases/tag/{os.environ['TAG']}",
-              "name": os.environ["TAG"]
+              "tag_name": tag,
+              "html_url": "https://github.com/%s/releases/tag/%s" % (os.environ["GITHUB_REPOSITORY"], tag),
+              "name": tag
           }
           with open("latest-release.json", "w", encoding="utf-8") as f:
               json.dump(data, f, ensure_ascii=False, indent=2)
               f.write("\n")
           PY
-          # ksu-update.json（KSU 管理器本地列表检查更新用）
+
           mkdir -p /tmp/dl
           gh release download "$TAG" -R "$GITHUB_REPOSITORY" -p '*.zip' -D /tmp/dl --clobber
           ZIP=$(basename "$(ls /tmp/dl/*.zip | head -1)")
@@ -28,6 +55,7 @@
             "zipUrl": "https://github.com/$GITHUB_REPOSITORY/releases/download/$TAG/$ZIP"
           }
           EOF
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add latest-release.json ksu-update.json
